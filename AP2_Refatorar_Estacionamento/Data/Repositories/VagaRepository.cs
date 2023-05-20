@@ -127,5 +127,15 @@ namespace AP2_Refatorar_Estacionamento
 
             return dcontext.Vagas.Where(n=>n.Estacionado!=null).ToList();
         }
+
+        public List<Vaga> GetAllEmpty()
+        {
+
+            //SELECT *
+            //FROM Vagas
+            //WHERE Estacionado IS NULL
+
+            return dcontext.Vagas.Where(p=>p.Estacionado==null).ToList();
+        }
     }
 }
