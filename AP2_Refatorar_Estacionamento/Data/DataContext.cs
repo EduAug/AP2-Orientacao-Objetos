@@ -31,6 +31,12 @@ namespace AP2_Refatorar_Estacionamento
             model.Entity<Veiculo>()
                 .HasIndex(v => v.Placa)
                 .IsUnique();
+
+            model.Entity<Vaga>()
+                .HasOne(v => v.Estacionado)
+                .WithOne()
+                .HasForeignKey<Vaga>(v=>v.VeiculoId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

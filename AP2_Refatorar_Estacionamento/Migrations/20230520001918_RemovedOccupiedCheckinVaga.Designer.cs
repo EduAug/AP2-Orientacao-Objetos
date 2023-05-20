@@ -3,6 +3,7 @@ using System;
 using AP2_Refatorar_Estacionamento;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AP2_Refatorar_Estacionamento.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230520001918_RemovedOccupiedCheckinVaga")]
+    partial class RemovedOccupiedCheckinVaga
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -28,8 +31,7 @@ namespace AP2_Refatorar_Estacionamento.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VeiculoId")
-                        .IsUnique();
+                    b.HasIndex("VeiculoId");
 
                     b.ToTable("Vagas");
                 });
@@ -84,9 +86,8 @@ namespace AP2_Refatorar_Estacionamento.Migrations
             modelBuilder.Entity("AP2_Refatorar_Estacionamento.Vaga", b =>
                 {
                     b.HasOne("AP2_Refatorar_Estacionamento.Veiculo", "Estacionado")
-                        .WithOne()
-                        .HasForeignKey("AP2_Refatorar_Estacionamento.Vaga", "VeiculoId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .WithMany()
+                        .HasForeignKey("VeiculoId");
 
                     b.Navigation("Estacionado");
                 });
