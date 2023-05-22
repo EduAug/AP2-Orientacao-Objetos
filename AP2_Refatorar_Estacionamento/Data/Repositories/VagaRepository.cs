@@ -78,14 +78,6 @@ namespace AP2_Refatorar_Estacionamento
                 return false;
             }
 
-            //Confere se o veículo passado não existe, e retorna falso
-            //Caso não exista nem em Carros nem Motos
-            if(acharMoto == null && acharCarro == null)
-            {
-
-                return false;
-            }
-
             //Confere se ainda há vagas disponíveis
             if(checkVaga == null)
             {
@@ -93,10 +85,27 @@ namespace AP2_Refatorar_Estacionamento
                 return false;
             }
 
-            //E se tudo der certo, inserimos o veiculo na vaga
-            checkVaga.VeiculoId = idVei;
-            dcontext.SaveChanges();
-            return true;
+
+            //E se, tudo der certo, inserimos o veiculo na vaga
+            if(acharMoto == null && acharCarro != null)
+            {
+                
+                checkVaga.VeiculoId = idVei;
+                checkVaga.Estacionado = acharCarro;
+                dcontext.SaveChanges();
+                return true;
+            }else if(acharMoto != null && acharCarro == null){
+
+                checkVaga.VeiculoId = idVei;
+                checkVaga.Estacionado = acharMoto;
+                dcontext.SaveChanges();
+                return true;
+            }else{
+
+                //Confere se o veículo passado não existe, e retorna falso
+                //Caso não exista nem em Carros nem Motos
+                return false;
+            }
         }
 
         public bool LiberarVaga(int idVei)

@@ -157,7 +157,7 @@ while(loopMenu != 0)
             
             listAllVehiclesSystem();
 
-            Console.WriteLine("Qual dos veículos cadastrados será liberado?");
+            Console.WriteLine("Qual dos veículos cadastrados será liberado?(Id)");
             idVehicle = Convert.ToInt32(Console.ReadLine());
             
             liberarVaga(idVehicle);
@@ -360,13 +360,17 @@ if (checkVaga != null)
 //Ver todas as vagas ocupadas
 void getOccupied(){
 
+    listAllVehiclesSystem();    //Gambiarra do G maíusculo
     Console.Clear();
     var getParkedVagas = vagaRep.GetAllParked();
 
     foreach (Vaga vagasOcupadas in getParkedVagas)
     {
 
-        Console.WriteLine($"Vaga: {vagasOcupadas.Id}\t|Placa do Veículo: {vagasOcupadas.Estacionado.Placa}\t|Modelo do Veículo: {vagasOcupadas.Estacionado.Modelo}");
+        if(vagasOcupadas.Estacionado != null)
+            Console.WriteLine($"Vaga: {vagasOcupadas.Id}\t|Placa do Veículo: {vagasOcupadas.Estacionado.Placa}\t|Modelo do Veículo: {vagasOcupadas.Estacionado.Modelo}");
+        else   
+            Console.WriteLine("teste");
     }
 }
 //Ver todas as vagas livres
